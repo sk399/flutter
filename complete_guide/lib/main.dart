@@ -20,15 +20,15 @@ class _MyAppState extends State<MyApp> {
       'answers': [
         {'text': 'Red', 'score': 10},
         {'text': 'Blue', 'score': 20},
-        {'text': 'Black', 'score': 30},
-        {'text': 'Green', 'score': 40},
+        {'text': 'Black', 'score': 5},
+        {'text': 'Green', 'score': 10},
       ]
     },
     {
       'questionText': 'What\'s my favourite snax?',
       'answers': [
         {'text': 'Ice cream', 'score': 10},
-        {'text': 'Choclate', 'score': 20},
+        {'text': 'Choclate', 'score': 11},
         {'text': 'Pudding', 'score': 10},
         {'text': 'Haldiram', 'score': 20},
       ]
@@ -36,18 +36,18 @@ class _MyAppState extends State<MyApp> {
     {
       'questionText': 'What\'s my favourite animal?',
       'answers': [
-        {'text': 'Tiger', 'score': 20},
+        {'text': 'Tiger', 'score': 10},
         {'text': 'Lion', 'score': 20},
-        {'text': 'Dog', 'score': 20},
-        {'text': 'Cat', 'score': 20},
+        {'text': 'Dog', 'score': 10},
+        {'text': 'Cat', 'score': 10},
       ]
     },
     {
       'questionText': 'What\'s my favourite pass time?',
       'answers': [
-        {'text': 'Netflix', 'score': 20},
-        {'text': 'Amazon Prime', 'score': 20},
-        {'text': 'Zee 5', 'score': 20},
+        {'text': 'Netflix', 'score': 10},
+        {'text': 'Amazon Prime', 'score': 10},
+        {'text': 'Zee 5', 'score': 10},
       ]
     },
   ];

@@ -6,11 +6,11 @@ class Result extends StatelessWidget {
   String get resultPhrase {
     var resultText = 'You did it already!';
     if (resultScore <= 20) {
-      resultText = 'You are Awesome!';
+      resultText = 'You are good!';
     } else if (resultScore <= 40) {
-      resultText = 'You are super Awesome!';
+      resultText = 'You are awesome!';
     } else {
-      resultText = 'You are meow!';
+      resultText = 'You are super awesome!';
     }
     return resultText;
   }
