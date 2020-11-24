@@ -12,7 +12,9 @@ class ChartBar extends StatelessWidget {
     return Column(
       //mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        FittedBox( child: Text('\$${this.spendingAmount}')),
+        Container(
+            height: 20,
+            child: FittedBox(child: Text('\$${this.spendingAmount}'))),
         SizedBox(
           height: 4,
         ),
@@ -40,7 +42,7 @@ class ChartBar extends StatelessWidget {
         SizedBox(
           height: 4,
         ),
-        Text(label)
+        Container(height: 20, child: Text(label))
       ],
     );
   }

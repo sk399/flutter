@@ -61,9 +61,9 @@ class _MyAppState extends State<MyApp> {
         appBarTheme: AppBarTheme(
             color: Colors.cyanAccent,
             textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(fontFamily: 'OpenSans', fontSize: 20))),
+                headline6: TextStyle(fontFamily: 'OpenSans', fontSize: 20))),
         textTheme: ThemeData.light().textTheme.copyWith(
-                title: TextStyle(
+                headline6: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 20,
               fontWeight: FontWeight.bold,

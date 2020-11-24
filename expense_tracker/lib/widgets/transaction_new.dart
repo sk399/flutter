@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -20,14 +19,14 @@ class _NewTransactionState extends State<NewTransaction> {
     return Padding(
       padding: const EdgeInsets.all(5.0),
       child: Column(
-         crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
           TextField(
             controller: titleController,
             decoration: InputDecoration(
               labelText: 'Title',
             ),
-            onSubmitted: (context) => submitData(context),
+            onSubmitted: (_) => submitData(context),
           ),
           TextField(
             controller: amountController,
@@ -38,14 +37,30 @@ class _NewTransactionState extends State<NewTransaction> {
             decoration: InputDecoration(
               labelText: 'Amount',
             ),
-            onSubmitted: (context) => submitData(context),
+            onSubmitted: (_) {
+              submitData(context);
+            },
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text('No date selected'),
+              FlatButton(
+                child: Text('Select date'),
+                onPressed: () {
+                  print('Nothing to do!');
+                },
+              )
+            ],
           ),
           Container(
             margin: EdgeInsets.all(8),
             child: FlatButton(
               color: Theme.of(context).primaryColorDark,
               child: Text('Add transaction'),
-              onPressed: () => submitData(context),
+              onPressed: () {
+                submitData(context);
+              },
             ),
           )
         ],
@@ -60,7 +75,8 @@ class _NewTransactionState extends State<NewTransaction> {
         this.amountController.text.isEmpty) {
       return;
     }
-    widget.addTransaction(this.titleController.text, this.amountController.text);
+    widget.addTransaction(
+        this.titleController.text, this.amountController.text);
     Navigator.of(context).pop();
   }
 }

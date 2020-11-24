@@ -21,7 +21,7 @@ class Chart extends StatelessWidget {
       }
 
       return {'day': DateFormat.E().format(weekDay), 'amount': totalAmount};
-    });
+    }).reversed.toList();
   }
 
   @override
@@ -35,12 +35,16 @@ class Chart extends StatelessWidget {
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: groupedTransactionValues.map((data) {
-          return Flexible(
-                    fit: FlexFit.tight,
-                    child: ChartBar(data['amount'], 
-            totalWeekSpending== 0.0 ? 0.0: (data['amount'] as double)/totalWeekSpending, data['day']),
-          );
-        }).toList()),
+              return Flexible(
+                fit: FlexFit.tight,
+                child: ChartBar(
+                    data['amount'],
+                    totalWeekSpending == 0.0
+                        ? 0.0
+                        : (data['amount'] as double) / totalWeekSpending,
+                    data['day']),
+              );
+            }).toList()),
       ),
     );
   }
