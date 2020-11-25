@@ -1,5 +1,6 @@
 import 'widgets/transaction_new.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 import 'models/transaction.dart';
 import 'widgets/transaction_list.dart';
 import 'widgets/chart.dart';
@@ -14,11 +15,44 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  List<Transaction> transactions = [
-    // Transaction(
-    //     id: null, title: 'New Transaction', amount: 12.3, date: DateTime.now())
-  ];
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        accentColor: Colors.amber,
+        errorColor: Colors.red,
+        fontFamily: 'OpenSans',
+        appBarTheme: AppBarTheme(
+            color: Colors.purple,
+            textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(fontFamily: 'OpenSans', fontSize: 20))),
+        textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            )),
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.purple,
+          textTheme: ButtonTextTheme.primary,
+          colorScheme:
+              Theme.of(context).colorScheme.copyWith(secondary: Colors.purple),
+        ),
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
 
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  var uuid = Uuid();
+  List<Transaction> transactions = [];
   void _startTransaction(BuildContext ctxt) {
     print('start Transaction');
     showModalBottomSheet(
@@ -32,15 +66,20 @@ class _MyAppState extends State<MyApp> {
         });
   }
 
-  void _addTransaction(String title, String amount) {
+  void _addTransaction(String title, String amount, DateTime txDate) {
     Transaction tx = Transaction(
-        id: null,
+        id: uuid.v1(),
         title: title,
         amount: double.parse(amount),
-        date: DateTime.now());
-
+        date: txDate);
     setState(() {
       transactions.add(tx);
+    });
+  }
+
+  void _deleteTransaction(String id) {
+    setState(() {
+      transactions.removeWhere((tx) => tx.id == id);
     });
   }
 
@@ -53,50 +92,43 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
-        accentColor: Colors.amber,
-        fontFamily: 'OpenSans',
-        appBarTheme: AppBarTheme(
-            color: Colors.cyanAccent,
-            textTheme: ThemeData.light().textTheme.copyWith(
-                headline6: TextStyle(fontFamily: 'OpenSans', fontSize: 20))),
-        textTheme: ThemeData.light().textTheme.copyWith(
-                headline6: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            )),
-      ),
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Personal Expense Tracker'),
-            actions: <Widget>[
-              Builder(
-                  builder: (context) => IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () => _startTransaction(context),
-                      )),
+    final appBar = AppBar(
+      title: Text('Personal Expense Tracker'),
+      actions: <Widget>[
+        Builder(
+            builder: (context) => IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () => _startTransaction(context),
+                )),
+      ],
+    );
+    return Scaffold(
+        appBar: appBar,
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      .3,
+                  child: Chart(_recentTransactions)),
+              Container(
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      .7,
+                  child: TransactionList(transactions, _deleteTransaction))
             ],
           ),
-          body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Chart(_recentTransactions),
-                TransactionList(transactions)
-              ],
-            ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Builder(
+          builder: (context) => FloatingActionButton(
+            child: Icon(Icons.add),
+            onPressed: () => _startTransaction(context),
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: Builder(
-            builder: (context) => FloatingActionButton(
-              child: Icon(Icons.add),
-              onPressed: () => _startTransaction(context),
-            ),
-          )),
-    );
+        ));
   }
 }
