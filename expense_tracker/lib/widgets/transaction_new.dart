@@ -17,64 +17,65 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime _selectedDate;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(5.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          TextField(
-            controller: titleController,
-            decoration: InputDecoration(
-              labelText: 'Title',
+    return 
+     Padding(
+       padding: const EdgeInsets.all(8.0),
+       child: Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            TextField(
+              controller: titleController,
+              decoration: InputDecoration(
+                labelText: 'Title',
+              ),
+              onSubmitted: (_) => submitData(context),
             ),
-            onSubmitted: (_) => submitData(context),
-          ),
-          TextField(
-            controller: amountController,
-            keyboardType: TextInputType.numberWithOptions(decimal: true),
-            inputFormatters: [
-              FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d{0,2})'))
-            ],
-            decoration: InputDecoration(
-              labelText: 'Amount',
-            ),
-            onSubmitted: (_) {
-              submitData(context);
-            },
-          ),
-          Container(
-            //height: 70,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Expanded(
-                  child: Text(_selectedDate == null
-                      ? 'No date selected'
-                      : 'Selected Date:${DateFormat.yMd().format(_selectedDate)}'),
-                ),
-                FlatButton(
-                  //color: Theme.of(context).accentColor,
-                  child: Text('Select date'),
-                  onPressed: () {
-                    _showDatePicker();
-                  },
-                )
+            TextField(
+              controller: amountController,
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'(^\d*\.?\d{0,2})'))
               ],
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(8),
-            child: RaisedButton(
-              color: Theme.of(context).buttonTheme.colorScheme.primary,
-              child: Text('Add transaction'),
-              onPressed: () {
+              decoration: InputDecoration(
+                labelText: 'Amount',
+              ),
+              onSubmitted: (_) {
                 submitData(context);
               },
             ),
-          )
-        ],
-      ),
-    );
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    child: Text(_selectedDate == null
+                        ? 'No date selected'
+                        : 'Selected Date:${DateFormat.yMd().format(_selectedDate)}'),
+                  ),
+                  FlatButton(
+                    //color: Theme.of(context).accentColor,
+                    child: Text('Select date'),
+                    onPressed: () {
+                      _showDatePicker();
+                    },
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.all(8),
+              child: RaisedButton(
+                color: Theme.of(context).buttonTheme.colorScheme.primary,
+                child: Text('Add transaction'),
+                onPressed: () {
+                  submitData(context);
+                },
+              ),
+            )
+          ],
+        
+    ),
+     );
   }
 
   void _showDatePicker() {
@@ -95,11 +96,12 @@ class _NewTransactionState extends State<NewTransaction> {
 
   void submitData(context) {
     if (this.titleController.text.isEmpty ||
-        this.amountController.text.isEmpty || _selectedDate == null) {
+        this.amountController.text.isEmpty ||
+        _selectedDate == null) {
       return;
     }
     widget.addTransaction(
-        this.titleController.text, this.amountController.text,_selectedDate);
+        this.titleController.text, this.amountController.text, _selectedDate);
     Navigator.of(context).pop();
   }
 }
