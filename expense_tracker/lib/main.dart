@@ -54,16 +54,22 @@ class _MyHomePageState extends State<MyHomePage> {
     print('start Transaction');
     showModalBottomSheet(
         isScrollControlled: true,
-        // enableDrag: true,
+        enableDrag: true,
         context: ctxt,
         builder: (buildContext) {
           return GestureDetector(
             onTap: () => {},
-            child: Wrap(
-              children: [Padding(
-                padding:  EdgeInsets.only(bottom: MediaQuery.of(buildContext).viewInsets.bottom),
-                child: NewTransaction(_addTransaction),
-              )],
+            child: SingleChildScrollView(
+              child: Wrap(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(
+                        bottom:
+                            MediaQuery.of(buildContext).viewInsets.bottom),
+                    child: NewTransaction(_addTransaction),
+                  )
+                ],
+              ),
             ),
             behavior: HitTestBehavior.opaque,
           );
