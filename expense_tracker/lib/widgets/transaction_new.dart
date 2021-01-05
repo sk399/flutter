@@ -78,11 +78,15 @@ class _NewTransactionState extends State<NewTransaction> {
 
   void _showDatePicker() {
     showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now().subtract(Duration(days: 7)),
-      lastDate: DateTime.now(),
-    ).then((value) {
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now().subtract(Duration(days: 7)),
+        lastDate: DateTime.now(),
+        builder: (BuildContext context, Widget child) {
+          return FittedBox(
+            child: child,
+          );
+        }).then((value) {
       if (value == null) {
         return;
       }
