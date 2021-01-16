@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+import './transaction_item.dart';
 import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
@@ -30,40 +31,8 @@ class TransactionList extends StatelessWidget {
               })
             : ListView.builder(
                 itemBuilder: (buildContext, index) {
-                  return Card(
-                    margin: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                          radius: 30,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: FittedBox(
-                              child: Text(
-                                  '\$${(transactions[index].amount.toString())}'),
-                            ),
-                          )),
-                      title: Text(transactions[index].title),
-                      subtitle: Text(
-                          DateFormat.yMMMd().format(transactions[index].date)),
-                      trailing: MediaQuery.of(context).size.width > 400
-                          ? FlatButton.icon(
-                              onPressed: () => deleteTx(transactions[index].id),
-                              icon: Icon(
-                                Icons.delete,
-                                color: Theme.of(context).errorColor,
-                              ),
-                              label: Text('Delete'))
-                          : IconButton(
-                              icon: Icon(
-                                Icons.delete,
-                                color: Theme.of(context).errorColor,
-                              ),
-                              onPressed: () =>
-                                  deleteTx(transactions[index].id)),
-                      // trailing: Icon(Icons.delete,
-                      //     color: Theme.of(context).errorColor),
-                    ),
-                  );
+                  return TransactionItem(
+                      transaction: transactions[index], deleteTx: deleteTx);
                 },
                 itemCount: transactions.length,
               ));
