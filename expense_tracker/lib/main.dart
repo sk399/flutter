@@ -151,9 +151,9 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
-PreferredSizeWidget _createAdaptiveAppBar(BuildContext context){
-  final appTitleWidget = const Text('Personal Expense Tracker');
-return Platform.isIOS
+  PreferredSizeWidget _createAdaptiveAppBar(BuildContext context) {
+    final appTitleWidget = const Text('Personal Expense Tracker');
+    return Platform.isIOS
         ? CupertinoNavigationBar(
             middle: appTitleWidget,
             trailing: Row(
@@ -175,8 +175,9 @@ return Platform.isIOS
                         onPressed: () => _startTransaction(context),
                       )),
             ],
-          )
-}
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
