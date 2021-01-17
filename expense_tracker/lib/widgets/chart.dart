@@ -41,7 +41,9 @@ class Chart extends StatelessWidget {
                     data['amount'],
                     totalWeekSpending == 0.0
                         ? 0.0
-                        : (data['amount'] as double) / totalWeekSpending,
+                        : double.parse(
+                            ((data['amount'] as double) / totalWeekSpending)
+                                .toStringAsFixed(2)),
                     data['day']),
               );
             }).toList()),
