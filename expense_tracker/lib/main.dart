@@ -54,8 +54,30 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   bool _showChart = false;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // print(state);
+    // TODO: implement didChangeAppLifecycleState
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   var uuid = Uuid();
   List<Transaction> transactions = [];
   void _startTransaction(BuildContext ctxt) {
@@ -142,6 +164,7 @@ class _MyHomePageState extends State<MyHomePage> {
       PreferredSizeWidget appBar, Widget txListWidget) {
     return [
       Container(
+          constraints: BoxConstraints(minHeight: 0.0),
           height: (mediaQuery.size.height -
                   appBar.preferredSize.height -
                   mediaQuery.padding.top) *
@@ -184,6 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
     final PreferredSizeWidget appBar = _createAdaptiveAppBar(context);
     final txListWidget = Container(
+        constraints: BoxConstraints(minHeight: 0.0),
         height: (mediaQuery.size.height -
                 appBar.preferredSize.height -
                 mediaQuery.padding.top) *
