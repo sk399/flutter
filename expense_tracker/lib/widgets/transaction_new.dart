@@ -91,8 +91,8 @@ class _NewTransactionState extends State<NewTransaction> {
           ),
           Container(
             margin: EdgeInsets.all(8),
-            child: RaisedButton(
-              color: Theme.of(context).buttonTheme.colorScheme.primary,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Theme.of(context).buttonTheme.colorScheme.primary),
               child: Text('Add transaction'),
               onPressed: () {
                 submitData(context);

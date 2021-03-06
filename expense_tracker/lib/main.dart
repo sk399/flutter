@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -176,6 +177,19 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
 
   PreferredSizeWidget _createAdaptiveAppBar(BuildContext context) {
     final appTitleWidget = const Text('Personal Expense Tracker');
+    // ignore: dead_code
+    if (kIsWeb) {
+      return AppBar(
+        title: appTitleWidget,
+        actions: <Widget>[
+          Builder(
+              builder: (context) => IconButton(
+                    icon: Icon(Icons.add),
+                    onPressed: () => _startTransaction(context),
+                  )),
+        ],
+      );
+    }
     return Platform.isIOS
         ? CupertinoNavigationBar(
             middle: appTitleWidget,
@@ -227,6 +241,14 @@ class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
         ),
       ),
     );
+    if (kIsWeb) {
+      return Scaffold(
+          appBar: appBar,
+          body: pageBody,
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
+          floatingActionButton: Container());
+    }
     return Platform.isIOS
         ? CupertinoPageScaffold(
             child: pageBody,

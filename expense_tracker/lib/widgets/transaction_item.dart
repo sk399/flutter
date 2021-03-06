@@ -51,7 +51,7 @@ class _TransactionItemState extends State<TransactionItem> {
         title: Text(widget.transaction.title),
         subtitle: Text(DateFormat.yMMMd().format(widget.transaction.date)),
         trailing: MediaQuery.of(context).size.width > 400
-            ? FlatButton.icon(
+            ? TextButton.icon(
                 onPressed: () => widget.deleteTx(widget.transaction.id),
                 icon: Icon(
                   Icons.delete,
